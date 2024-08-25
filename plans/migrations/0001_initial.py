@@ -7,16 +7,34 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Plan',
+            name="Plan",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(choices=[('Free', 'Free Plan'), ('Standard', 'Standard Plan'), ('Pro', 'Pro Plan')], max_length=20, unique=True)),
-                ('price', models.PositiveIntegerField(default=0)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        choices=[
+                            ("Free", "Free Plan"),
+                            ("Standard", "Standard Plan"),
+                            ("Pro", "Pro Plan"),
+                        ],
+                        max_length=20,
+                        unique=True,
+                    ),
+                ),
+                ("price", models.PositiveIntegerField(default=0)),
             ],
         ),
     ]

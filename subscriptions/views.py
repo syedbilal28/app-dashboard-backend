@@ -10,6 +10,7 @@ class SubscriptionViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing subscriptions.
     """
+
     serializer_class = SubscriptionSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -20,41 +21,35 @@ class SubscriptionViewSet(viewsets.ModelViewSet):
         """
         return Subscription.objects.filter(app__user=self.request.user)
 
-    @action(detail=True, methods=['get'])
+    @action(detail=True, methods=["get"])
     def get_subscription_by_app(self, request, pk=None):
         """
         Retrieve a specific subscription by the app ID.
         """
         try:
-            subscription = Subscription.objects.get(
-                app__id=pk, app__user=request.user
-            )
+            subscription = Subscription.objects.get(app__id=pk, app__user=request.user)
             serializer = self.get_serializer(subscription)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Subscription.DoesNotExist:
             return Response(
                 {"error": "Subscription not found for this app."},
-                status=status.HTTP_404_NOT_FOUND
+                status=status.HTTP_404_NOT_FOUND,
             )
 
-    @action(detail=True, methods=['put'])
+    @action(detail=True, methods=["put"])
     def update_subscription_by_app(self, request, pk=None):
         """
         Update a specific subscription by the app ID.
         """
         try:
-            subscription = Subscription.objects.get(
-                app__id=pk, app__user=request.user
-            )
+            subscription = Subscription.objects.get(app__id=pk, app__user=request.user)
         except Subscription.DoesNotExist:
             return Response(
                 {"error": "Subscription not found for this app."},
-                status=status.HTTP_404_NOT_FOUND
+                status=status.HTTP_404_NOT_FOUND,
             )
 
-        serializer = self.get_serializer(
-            subscription, data=request.data, partial=True
-        )
+        serializer = self.get_serializer(subscription, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

@@ -3,11 +3,12 @@ URLs module for Accounts app containing URL patterns
 for mapping URLs to appropriate views, allowing for
 easy navigation and organization of the app's functionality
 """
+
 from django.urls import path
 from rest_framework_simplejwt.views import (
     TokenBlacklistView,
     TokenRefreshView,
-    TokenObtainPairView
+    TokenObtainPairView,
 )
 
 
